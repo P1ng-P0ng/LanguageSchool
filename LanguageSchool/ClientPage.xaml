@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LanguageSchool"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ClientPage">
+      Title="ClientPage" FontFamily="Comic Sans MS">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,6 +15,24 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+            <TextBox Name="SearchTB" Width="350" Height="30" FontSize="18" Margin="5" TextChanged="SearchTB_TextChanged"/>
+            <!--<TextBlock Text="Пол: " Width="40" Height="30" FontSize="18" Margin="5"/>-->
+            <ComboBox Name="GenderCombo" Width="150" FontSize="18" Height="30" Margin="5" SelectionChanged="GenderCombo_SelectionChanged">
+                <TextBlock Text="Пол"/>
+                <TextBlock Text="Женский"/>
+                <TextBlock Text="Мужской"/>
+            </ComboBox>
+
+            <ComboBox Name="SortCombo" Width="370" FontSize="18" Height="30" Margin="5" SelectionChanged="FIOCombo_SelectionChanged">
+                <TextBlock Text="Сортировка по"/>
+                <TextBlock Text="Фамилии в алфавитном порядке"/>
+                <TextBlock Text="Кол-во посещений по убыванию"/>
+                <TextBlock Text="Последнее посещение по убыванию"/>
+            </ComboBox>
+
+        </StackPanel>
         
         <ListView Name="SchoolListView" Grid.Row="2">
             <!--<ListView.ContextMenu>
@@ -97,6 +115,7 @@
             </ComboBox>
             
             <TextBlock Name="TBCount" FontSize="20" Height="30"></TextBlock>
+            <TextBlock Text=" из " FontSize="20" Height="30"></TextBlock>
             <TextBlock Name="TBAllRecords" FontSize="20" Height="30"></TextBlock>
             <Button Name="LeftDirButton" Content="&lt;" Width="20" Height="30"
             Click="LeftDirButton_Click"></Button>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LanguageSchool"
         mc:Ignorable="d"
-        Title="ShafikovLanguageSchool" Height="450" Width="800" Icon="Images\school_logo.ico">
+        Title="ShafikovLanguageSchool" Height="450" Width="800" Icon="Images\school_logo.ico" FontFamily="Comic Sans MS">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

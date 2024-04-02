@@ -35,6 +35,9 @@ namespace LanguageSchool
             var currentClient = ShafikovLanguageEntities.GetContext().Client.ToList();
             SchoolListView.ItemsSource = currentClient;
             strCount.SelectedIndex = 0;
+            SortCombo.SelectedIndex = 0;
+            GenderCombo.SelectedIndex = 0;
+            TBAllRecords.Text = Convert.ToString(currentClient.Count);
             TBCount.Text = Convert.ToString(currentClient.Count);
             UpdatePage();
         }
@@ -43,11 +46,43 @@ namespace LanguageSchool
         {
             var currentClient = ShafikovLanguageEntities.GetContext().Client.ToList();
 
-            TBAllRecords.Text = ShafikovLanguageEntities.GetContext().Client.ToList().Count().ToString();
-            TBCount.Text = currentClient.Count().ToString();
+           
 
-            SchoolListView.ItemsSource = currentClient;
-            TableList = currentClient;
+            currentClient = currentClient.Where(p => (p.LastName.ToLower().Contains(SearchTB.Text.ToLower())
+            || p.FirstName.ToLower().Contains(SearchTB.Text.ToLower()) || p.Patronymic.ToLower().Contains(SearchTB.Text.ToLower())
+            || p.Email.ToLower().Contains(SearchTB.Text.ToLower())
+            || p.Phone.Replace("+", "").Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "").Contains(SearchTB.Text)
+            || p.Email.ToLower().Contains(SearchTB.Text.ToLower()))).ToList();
+
+            if (GenderCombo.SelectedIndex == 0)
+            {
+
+            }
+            else if(GenderCombo.SelectedIndex == 1)
+            {
+                currentClient = currentClient.OrderBy(x => x.GenderName).ToList();
+            }
+            else if (GenderCombo.SelectedIndex == 2)
+            {
+                currentClient = currentClient.OrderByDescending(x => x.GenderName).ToList();
+            }
+
+            if (SortCombo.SelectedIndex == 0)
+            {
+
+            }
+            else if (SortCombo.SelectedIndex == 1)
+            {
+                currentClient = currentClient.OrderBy(x => x.LastName).ToList();
+            }    
+            else if (SortCombo.SelectedIndex == 2)
+            {
+                currentClient = currentClient.OrderByDescending(x => x.VisitCount).ToList();
+            }
+            else if (SortCombo.SelectedIndex == 3)
+            {
+                currentClient = currentClient.OrderByDescending(x => x.LastVisitDateSort).ToList();
+            }
 
             if (strCount.SelectedIndex == 0)
             {
@@ -65,6 +100,12 @@ namespace LanguageSchool
             {
                 CountInPage = 0;
             }
+
+            TBAllRecords.Text = ShafikovLanguageEntities.GetContext().Client.ToList().Count().ToString();
+            TBCount.Text = currentClient.Count().ToString();
+
+            SchoolListView.ItemsSource = currentClient;
+            TableList = currentClient;
 
             ChangePage(0, 0);
         }
@@ -156,7 +197,7 @@ namespace LanguageSchool
 
                     min = CurrentPage * 10 + 10 < CountRecords ? CurrentPage * 10 + 10 : CountRecords;
                     //TBCount.Text = min.ToString();
-                    TBAllRecords.Text = " из " + CountRecords.ToString();
+                    //TBAllRecords.Text = " из " + CountRecords.ToString();
 
                     SchoolListView.ItemsSource = CurrentPageList;
                     SchoolListView.Items.Refresh();
@@ -221,6 +262,31 @@ namespace LanguageSchool
             {
                 MessageBox.Show("Невозможно выполнить удаление, так как клиент проявляет активность");
             }
+        }
+
+        private void GenderCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdatePage();
+        }
+
+        private void FIOCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdatePage();
+        }
+
+        private void LastVisitCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdatePage();
+        }
+
+        private void CountVisitCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdatePage();
+        }
+
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdatePage();
         }
 
         /*private void DeleteMenu_Click(object sender, RoutedEventArgs e)

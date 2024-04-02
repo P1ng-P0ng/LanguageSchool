@@ -65,5 +65,15 @@ namespace LanguageSchool
                     return ShafikovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString();
             }
         }
+
+        public DateTime LastVisitDateSort
+        {
+            get
+            {
+                if (VisitCount != 0)
+                    return Convert.ToDateTime(ShafikovLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString());
+                return Convert.ToDateTime("01-01-0001");
+            }
+        }
     }
 }
