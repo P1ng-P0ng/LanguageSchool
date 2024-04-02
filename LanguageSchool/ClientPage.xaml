@@ -13,10 +13,15 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
         <ListView Name="SchoolListView" Grid.Row="2">
+            <!--<ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="DeleteMenu" Header="Удалить" Click="DeleteMenu_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>-->
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -66,6 +71,7 @@
                         <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
                             <TextBlock Text="Количество посещений: " FontSize="20"/>
                             <TextBlock Text="{Binding VisitCount}" FontSize="20"/>
+                            <Button Name="DeleteBtn" Content="Удалить" Click="DeleteBtn_Click" HorizontalAlignment="Right"/>
                         </StackPanel>
                         <Image Width="150" Grid.Column="0" Stretch="Uniform" Margin="5" Grid.RowSpan="7">
                             <Image.Source>
@@ -81,5 +87,28 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Выводить по " FontSize="20" Height="30"/>
+            <ComboBox Name="strCount" Width="100" FontSize="20" Height="30" SelectionChanged="strCount_SelectionChanged">
+                <TextBlock>10</TextBlock>
+                <TextBlock>50</TextBlock>
+                <TextBlock>200</TextBlock>
+                <TextBlock>Все</TextBlock>
+            </ComboBox>
+            
+            <TextBlock Name="TBCount" FontSize="20" Height="30"></TextBlock>
+            <TextBlock Name="TBAllRecords" FontSize="20" Height="30"></TextBlock>
+            <Button Name="LeftDirButton" Content="&lt;" Width="20" Height="30"
+            Click="LeftDirButton_Click"></Button>
+            <ListBox FontSize="20" Name="PageListBox" MouseUp="PageListBox_MouseUp">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" Width="20" Height="30"
+            Click="RightDirButton_Click"></Button>
+        </StackPanel>
     </Grid>
 </Page>
