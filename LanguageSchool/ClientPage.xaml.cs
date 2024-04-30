@@ -289,6 +289,20 @@ namespace LanguageSchool
             UpdatePage();
         }
 
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddEditWindow addEditWindow = new AddEditWindow((sender as Button).DataContext as Client);
+            addEditWindow.ShowDialog();
+            UpdatePage();
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddEditWindow addEditWindow = new AddEditWindow(null);
+            addEditWindow.ShowDialog();
+            UpdatePage();
+        }
+
         /*private void DeleteMenu_Click(object sender, RoutedEventArgs e)
         {
             var currentClient = (sender as Button).DataContext as Client;
